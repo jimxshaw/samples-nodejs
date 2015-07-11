@@ -57,3 +57,34 @@ exports.add = function(req, res) {
   }
   res.render('events/add');
 };
+
+exports.create = function(req, res, next){
+  var workflow = req.app.utility.workflow(req, res);
+
+  workflow.on('validate', function() {
+    if (!req.body.name) {
+      workflow.outcome.errors.push('Please enter a name.');
+      return workflow.emit('response');
+    }
+
+  });
+
+  workflow.on('createEvent', function() {
+    var fieldsToSet = {
+      username: req.body.username,
+      search: [
+        req.body.username
+      ]
+    };
+    req.app.db.models.User.create(fieldsToSet, function(err, user) {
+      if (err) {
+        return workflow.emit('exception', err);
+      }
+
+      workflow.outcome.record = user;
+      return workflow.emit('response');
+    });
+  });
+
+  workflow.emit('validate');
+};

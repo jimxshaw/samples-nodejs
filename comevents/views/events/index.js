@@ -71,20 +71,43 @@ exports.create = function(req, res, next){
 
   workflow.on('createEvent', function() {
     var fieldsToSet = {
+      name: req.body.name,
+      description: req.body.description,
+      venue: req.body.venue,
+      date: req.body.date,
+      startTime: req.body.startTime,
+      endTime: req.body.endTime,
       username: req.body.username,
       search: [
-        req.body.username
+        req.body.name
       ]
     };
-    req.app.db.models.User.create(fieldsToSet, function(err, user) {
+    req.app.db.models.Event.create(fieldsToSet, function(err, event) {
       if (err) {
         return workflow.emit('exception', err);
       }
 
-      workflow.outcome.record = user;
-      return workflow.emit('response');
+      workflow.outcome.record = event;
+      req.flash('success', 'Event added');
+      res.location('/events');
+      res.redirect('/events');
     });
   });
 
   workflow.emit('validate');
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

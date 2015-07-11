@@ -51,7 +51,7 @@ exports.read = function(req, res, next){
 
 exports.add = function(req, res) {
   if (!req.isAuthenticated()) {
-    req.flas('error', "You are not logged in");
+    req.flash('error', "You are not logged in");
     res.location('/events');
     res.redirect('/events');
   }
@@ -67,6 +67,8 @@ exports.create = function(req, res, next){
       return workflow.emit('response');
     }
 
+    workflow.emit('createEvent');
+
   });
 
   workflow.on('createEvent', function() {
@@ -77,7 +79,7 @@ exports.create = function(req, res, next){
       date: req.body.date,
       startTime: req.body.startTime,
       endTime: req.body.endTime,
-      username: req.body.username,
+      username: req.user.username,
       search: [
         req.body.name
       ]
@@ -88,7 +90,7 @@ exports.create = function(req, res, next){
       }
 
       workflow.outcome.record = event;
-      req.flash('success', 'Event added');
+      req.flash('success', "Event added");
       res.location('/events');
       res.redirect('/events');
     });

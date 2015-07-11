@@ -8,8 +8,8 @@
   "dependencies": {
     "async": "^0.9.x",
     "backbone": "^1.x.x",
-    "bcryptjs": "*",
     "bcrypt": "^0.8.x",
+    "bcryptjs": "*",
     "body-parser": "^1.x.x",
     "compression": "^1.x.x",
     "connect-mongo": "^0.8.x",
@@ -17,6 +17,7 @@
     "csurf": "^1.x.x",
     "emailjs": "^0.3.x",
     "express": "^4.12.x",
+    "express-messages": "0.0.2",
     "express-session": "^1.x.x",
     "helmet": "^0.7.x",
     "jade": "^1.x.x",

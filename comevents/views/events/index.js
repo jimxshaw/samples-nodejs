@@ -124,25 +124,26 @@ exports.update = function(req, res, next){
 
   });
 
+
   workflow.on('updateEvent', function() {
     var fieldsToSet = {
       name: req.body.name,
       description: req.body.description,
-      venue: req.body.venue,
-      date: req.body.date,
+      venu: req.body.venue,
+      date: req.body.date,  
       startTime: req.body.startTime,
       endTime: req.body.endTime,
       username: req.user.username
     };
-    req.app.db.models.Event.findByIdAndUpdate(req.param.id, fieldsToSet, function(err, event) {
+    req.app.db.models.Event.findByIdAndUpdate(req.params.id, fieldsToSet, function(err, event) {
       if (err) {
         return workflow.emit('exception', err);
       }
 
       workflow.outcome.record = event;
-      req.flash('success', "Event updated");
-      res.location('/events/show/' + req.params.id);
-      res.redirect('/events/show/' + req.params.id);
+      req.flash('success','Event Updated');
+      res.location('/event/show/'+req.params.id);
+      res.redirect('/events/show/'+req.params.id);
     });
   });
 

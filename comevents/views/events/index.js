@@ -99,6 +99,21 @@ exports.create = function(req, res, next){
   workflow.emit('validate');
 };
 
+exports.edit = function(req, res, next){
+  req.app.db.models.Event.findById(req.params.id).exec(function(err, event) {
+    if (err) {
+      return next(err);
+    }
+
+    if (req.xhr) {
+      res.send(event);
+    }
+    else {
+      res.render('events/edit', { event: event });
+    }
+  });
+};
+
 
 
 

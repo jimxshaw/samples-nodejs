@@ -1,7 +1,33 @@
-doctype html
-html
-  head
+doctype strict
+html(xmlns='http://www.w3.org/1999/xhtml')
+head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(http-equiv='Content-Language', content='English')
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    link(rel='stylesheet', type='text/css', href='/stylesheets/style.css', media='screen')
+    script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
+    script(src="/javascripts/main.js")
   body
-    block content
+    #wrap
+      #header
+        h1
+          a(href='#') FindaDoc
+        h2 Search for local Medical Doctors
+      #menu
+        ul
+          li
+            a(href='/') Home
+          li
+            a(href='/doctors') Browse Doctors
+          li
+            a(href='/doctors/add') Add Doctor
+          li
+            a(href='/categories/add') Add Category
+      #content
+        .left
+          block content
+        .right
+         include ./includes/categories.jade
+        div(style='clear: both;')  
+      #footer
+        | FindaDoc Inc. &copy; 2015, All Rights Reserved

@@ -1,0 +1,32 @@
+extends layout
+
+block content
+	a(href='/doctors') &lt; Go Back
+	br
+	br
+	.details
+		h2 Arya Stark
+		| &#x9;
+		h4 Physician Information
+		| &#x9;
+		ul.doc-info
+			li Full Name: Arya Stark MD
+			| &#x9;&#x9;
+			li Accepting New Patients: Yes
+			| &#x9;&#x9;
+			li Speciality/Category: Surgery
+			| &#x9;&#x9;
+			li Graduation Date: 2002
+		| &#x9;
+		h4 Practice Information
+		| &#x9;
+		ul.practice-info
+			li Name: Winterfell Medical Center
+			| &#x9;&#x9;
+			li Address: 333 Constitution Ave, Washington, DC 88888
+			| &#x9;&#x9;
+		br
+		br
+		a(class="editDoctor" href="/edit/1") Edit
+		| | 
+		a(class="deleteDoctor" href="" data-id="1") Delete

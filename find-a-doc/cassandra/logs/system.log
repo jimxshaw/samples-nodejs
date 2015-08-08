@@ -149,3 +149,6 @@ INFO  [MemtableFlushWriter:9] 2015-08-07 17:40:01,696 Memtable.java:382 - Comple
 INFO  [ScheduledTasks:1] 2015-08-07 17:40:02,662 ColumnFamilyStore.java:912 - Enqueuing flush of local: 465 (0%) on-heap, 0 (0%) off-heap
 INFO  [MemtableFlushWriter:8] 2015-08-07 17:40:02,662 Memtable.java:347 - Writing Memtable-local@1522230739(0.053KiB serialized bytes, 6 ops, 0%/0% of on/off-heap limit)
 INFO  [MemtableFlushWriter:8] 2015-08-07 17:40:02,664 Memtable.java:382 - Completed flushing ./../data/data/system/local-7ad54392bcdd35a684174e047860b377/system-local-tmp-ka-6-Data.db (0.000KiB) for commitlog position ReplayPosition(segmentId=1438983601617, position=3116936)
+INFO  [ScheduledTasks:1] 2015-08-07 19:52:55,361 ColumnFamilyStore.java:912 - Enqueuing flush of size_estimates: 3330677 (1%) on-heap, 0 (0%) off-heap
+INFO  [MemtableFlushWriter:10] 2015-08-07 19:52:55,363 Memtable.java:347 - Writing Memtable-size_estimates@1223657312(319.891KiB serialized bytes, 36960 ops, 1%/0% of on/off-heap limit)
+INFO  [MemtableFlushWriter:10] 2015-08-07 19:52:55,376 Memtable.java:382 - Completed flushing ./../data/data/system/size_estimates-618f817b005f3678b8a453f3930b8e86/system-size_estimates-tmp-ka-2-Data.db (44.230KiB) for commitlog position ReplayPosition(segmentId=1438983601617, position=6458168)

@@ -5,28 +5,28 @@ block content
 	br
 	br
 	.details
-		h2 Arya Stark
+		h2 #{doctor.full_name}
 		| &#x9;
 		h4 Physician Information
 		| &#x9;
 		ul.doc-info
-			li Full Name: Arya Stark MD
+			li Full Name: #{doctor.full_name} MD
 			| &#x9;&#x9;
-			li Accepting New Patients: Yes
+			li Accepting New Patients: #{doctor.new_patients}
 			| &#x9;&#x9;
-			li Speciality/Category: Surgery
+			li Speciality/Category: #{doctor.category}
 			| &#x9;&#x9;
-			li Graduation Date: 2002
+			li License Year: #{doctor.graduation_year}
 		| &#x9;
 		h4 Practice Information
 		| &#x9;
 		ul.practice-info
-			li Name: Winterfell Medical Center
+			li Name: #{doctor.practice_name}
 			| &#x9;&#x9;
-			li Address: 333 Constitution Ave, Washington, DC 88888
+			li Address: #{doctor.street_addres}, #{doctor.city}, #{doctor.state} #{doctor.zip}
 			| &#x9;&#x9;
 		br
 		br
-		a(class="editDoctor" href="/edit/1") Edit
+		a(class="editDoctor" href="/edit/#{doctor.doc_id}") Edit
 		| | 
-		a(class="deleteDoctor" href="" data-id="1") Delete
+		a(class="deleteDoctor" href="" data-id="#{doctor.doc_id}") Delete

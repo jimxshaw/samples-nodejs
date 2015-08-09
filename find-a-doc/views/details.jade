@@ -23,10 +23,6 @@ block content
 		ul.practice-info
 			li Name: #{doctor.practice_name}
 			| &#x9;&#x9;
-			li Address: #{doctor.street_addres}, #{doctor.city}, #{doctor.state} #{doctor.zip}
+			li Address: #{doctor.street_addres} #{doctor.city}, #{doctor.state} #{doctor.zip}
 			| &#x9;&#x9;
 		br
-		br
-		a(class="editDoctor" href="/edit/#{doctor.doc_id}") Edit
-		| | 
-		a(class="deleteDoctor" href="" data-id="#{doctor.doc_id}") Delete

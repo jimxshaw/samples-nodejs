@@ -8,7 +8,7 @@ block content
 				li
 					h3 #{doctor.full_name}
 					p Specialty: #{doctor.category}
-					p Location: #{doctor.city} #{doctor.state}, #{doctor.zip}
+					p Location: #{doctor.city}, #{doctor.state} #{doctor.zip}
 					p
 						a(href='/doctors/details/#{doctor.doc_id}') &gt; Details
 		else

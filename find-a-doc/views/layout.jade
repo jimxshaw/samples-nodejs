@@ -12,7 +12,7 @@ head
       #header
         h1
           a(href='#') FindaDoc
-        h2 Search for local Medical Doctors
+        h2 Search for local doctors
       #menu
         ul
           li
@@ -25,9 +25,11 @@ head
             a(href='/categories/add') Add Category
       #content
         .left
+          !=messages()
           block content
         .right
          include ./includes/categories.jade
         div(style='clear: both;')  
       #footer
-        | FindaDoc Inc. &copy; 2015, All Rights Reserved
+        |  
+        FindaDoc Inc &copy; 2015, All Right Reserved

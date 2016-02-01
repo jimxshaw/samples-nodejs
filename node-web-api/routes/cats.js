@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var Cat = require('../models/cat.js');
 
 module.exports = function(app) {
 
@@ -50,7 +51,7 @@ module.exports = function(app) {
                 cat.save(function(err) {
                     if (err) {
                         res.json({info: 'error during cat update', error: err});
-                    };
+                    }
                     res.json({info: 'cat updated successfully'});
                 });
             } else {
@@ -69,6 +70,4 @@ module.exports = function(app) {
             res.json({info: 'cat removed successfully'});
         });
     });
-
-
 };

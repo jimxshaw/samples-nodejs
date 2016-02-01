@@ -1,15 +1,17 @@
-var http = require('http');
+var express = require('express');
 
-// The callback function that the createServer method contains is what's 
-// executed every time someone visits our web page. 
-http.createServer(function(req, res) {
-  res.writeHead(200, {
-    'Content-Type': 'text/plain'
-  });
-  res.end('Hello world!\n');
-}).listen(3000, '127.0.0.1');
+var app = express();
 
-console.log('Server running at http://127.0.0.1:3000/');
+// Every time there's a GET request on '/' route, execute the function.
+// If another route besides '/' is used, nothing will happened. 
+app.get('/', function(req, res) {
+  //res.send('Hello world!');
+  res.json({hello: 'world'});
+});
+
+var server = app.listen(3000, function() {
+  console.log('Server running at http://127.0.0.1:3000/');
+});
 
 
 

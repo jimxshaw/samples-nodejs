@@ -9,7 +9,7 @@ module.exports = function(app) {
         newDog.save(function(err) {
             if (err) {
                 res.json({info: 'error during dog create', error: err});
-            };
+            }
             res.json({info: 'dog created successfully'});
         });
     });
@@ -19,7 +19,7 @@ module.exports = function(app) {
         Dog.find(function(err, dogs) {
             if (err) {
                 res.json({info: 'error during find dogs', error: err});
-            };
+            }
             // res.json({info: 'dogs found successfully', data: dogs});
             setTimeout(function(){
                 res.json({info: 'dogs found successfully', data: dogs});
@@ -31,7 +31,7 @@ module.exports = function(app) {
         Dog.findById(req.params.id, function(err, dog) {
             if (err) {
                 res.json({info: 'error during find dog', error: err});
-            };
+            }
             if (dog) {
                 res.json({info: 'dog found successfully', data: dog});
             } else {
@@ -45,13 +45,13 @@ module.exports = function(app) {
         Dog.findById(req.params.id, function(err, dog) {
             if (err) {
                 res.json({info: 'error during find dog', error: err});
-            };
+            }
             if (dog) {
                 _.merge(dog, req.body);
                 dog.save(function(err) {
                     if (err) {
                         res.json({info: 'error during dog update', error: err});
-                    };
+                    }
                     res.json({info: 'dog updated successfully'});
                 });
             } else {
@@ -66,7 +66,7 @@ module.exports = function(app) {
         Dog.findByIdAndRemove(req.params.id, function(err) {
             if (err) {
                 res.json({info: 'error during remove dog', error: err});
-            };
+            }
             res.json({info: 'dog removed successfully'});
         });
     });

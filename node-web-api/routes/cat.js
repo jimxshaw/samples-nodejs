@@ -9,7 +9,7 @@ module.exports = function(app) {
         newCat.save(function(err) {
             if (err) {
                 res.json({info: 'error during cat create', error: err});
-            };
+            }
             res.json({info: 'cat created successfully'});
         });
     });
@@ -19,7 +19,7 @@ module.exports = function(app) {
         Cat.find(function(err, cats) {
             if (err) {
                 res.json({info: 'error during find cats', error: err});
-            };
+            }
             res.json({info: 'cats found successfully', data: cats});
         });
     });
@@ -28,7 +28,7 @@ module.exports = function(app) {
         Cat.findById(req.params.id, function(err, cat) {
             if (err) {
                 res.json({info: 'error during find cat', error: err});
-            };
+            }
             if (cat) {
                 // res.json({info: 'cat found successfully', data: cat});
                 setTimeout(function(){
@@ -45,13 +45,13 @@ module.exports = function(app) {
         Cat.findById(req.params.id, function(err, cat) {
             if (err) {
                 res.json({info: 'error during find cat', error: err});
-            };
+            }
             if (cat) {
                 _.merge(cat, req.body);
                 cat.save(function(err) {
                     if (err) {
                         res.json({info: 'error during cat update', error: err});
-                    };
+                    }
                     res.json({info: 'cat updated successfully'});
                 });
             } else {
@@ -66,7 +66,7 @@ module.exports = function(app) {
         Cat.findByIdAndRemove(req.params.id, function(err) {
             if (err) {
                 res.json({info: 'error during remove cat', error: err});
-            };
+            }
             res.json({info: 'cat removed successfully'});
         });
     });

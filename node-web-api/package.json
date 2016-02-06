@@ -1,5 +1,5 @@
 {
-  "name": "node-web-api",
+  "name": "play-by-play",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,9 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.14.2",
-    "express": "~4.13.4",
-    "lodash": "^4.1.0",
-    "mongoose": "^4.3.7"
+    "async": "^1.5.0",
+    "body-parser": "^1.14.1",
+    "express": "~4.13.3",
+    "lodash": "^3.10.1",
+    "mongoose": "^4.2.7",
+    "redis": "^2.3.1",
+    "request": "^2.67.0"
   }
 }

@@ -22,7 +22,6 @@ module.exports = function(app) {
                 });
             },
             dog: function(callback){
-
                 r({uri: 'http://localhost:3001/dog'}, function(error, response, body) {
                     if (error) {
                         callback({service: 'dog', error: error});
@@ -34,7 +33,6 @@ module.exports = function(app) {
                         callback(response.statusCode);
                     }
                 });
-
             }
         },
         function(error, results) {
@@ -43,6 +41,10 @@ module.exports = function(app) {
                 results: results
             });
         });
+    });
+
+    app.get('/ping', function (req, res) {
+        res.json({pong: Date.now()});
     });
 };
 

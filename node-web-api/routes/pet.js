@@ -1,12 +1,26 @@
+// sudo mongod <--- mongo daemon
+// sudo mongo <--- mongo cli
+// redis-server <--- redis daemon
+// redist-cli <---- redis cli
+// forever start cat_server.js
+// forever start dog_server.js
+// nodemon pet_server.js
+
 var r = require('request').defaults({
     json: true
 });
 
 var async = require('async');
 
+// redis is used to implement caching of data.
+var redis = require('redis');
+var client = redis.createClient(6379, '127.0.0.1');
+
 module.exports = function(app) {
+
     /* Read */
-    app.get('/pets', function(req, res) {
+    app.get('/pets', function (req, res) {
+
         async.parallel({
             cat: function(callback){
                 r({uri: 'http://localhost:3000/cat'}, function(error, response, body) {
@@ -22,17 +36,32 @@ module.exports = function(app) {
                 });
             },
             dog: function(callback){
-                r({uri: 'http://localhost:3001/dog'}, function(error, response, body) {
-                    if (error) {
-                        callback({service: 'dog', error: error});
-                        return;
-                    }
-                    if (!error && response.statusCode === 200) {
-                        callback(null, body.data);
+
+                client.get('http://localhost:3001/dog', function(error, dog) {
+                    if (error) {throw error;}
+                    if (dog) {
+                        callback(null, JSON.parse(dog));
                     } else {
-                        callback(response.statusCode);
+
+                        r({uri: 'http://localhost:3001/dog'}, function(error, response, body) {
+                            if (error) {
+                                callback({service: 'dog', error: error});
+                                return;
+                            }
+                            if (!error && response.statusCode === 200) {
+                                callback(null, body.data);
+                                // client.set('http://localhost:3001/dog', JSON.stringify(body.data), function (error) {
+                                client.setex('http://localhost:3001/dog', 300, JSON.stringify(body.data), function (error) {
+                                    if (error) {throw error;}
+                                }); // The setex determines how long the redis cache lasts in seconds before expiring. 
+                            } else {
+                                callback(response.statusCode);
+                            }
+                        });
+
                     }
                 });
+
             }
         },
         function(error, results) {
@@ -41,76 +70,11 @@ module.exports = function(app) {
                 results: results
             });
         });
+
     });
 
     app.get('/ping', function (req, res) {
         res.json({pong: Date.now()});
     });
+
 };
-
-// var async = require('async');
-// var redis = require('redis');
-// var client = redis.createClient(6379, '127.0.0.1');
-
-// module.exports = function(app) {
-
-//     /* Read */
-//     app.get('/pets', function (req, res) {
-
-//         async.parallel({
-//             cat: function(callback){
-//                 r({uri: 'http://localhost:3000/cat'}, function(error, response, body) {
-//                     if (error) {
-//                         callback({service: 'cat', error: error});
-//                         return;
-//                     }
-//                     if (!error && response.statusCode === 200) {
-//                         callback(null, body.data);
-//                     } else {
-//                         callback(response.statusCode);
-//                     }
-//                 });
-//             },
-//             dog: function(callback){
-
-//                 client.get('http://localhost:3001/dog', function(error, dog) {
-//                     if (error) {throw error;}
-//                     if (dog) {
-//                         callback(null, JSON.parse(dog));
-//                     } else {
-
-//                         r({uri: 'http://localhost:3001/dog'}, function(error, response, body) {
-//                             if (error) {
-//                                 callback({service: 'dog', error: error});
-//                                 return;
-//                             }
-//                             if (!error && response.statusCode === 200) {
-//                                 callback(null, body.data);
-//                                 // client.set('http://localhost:3001/dog', JSON.stringify(body.data), function (error) {
-//                                 client.setex('http://localhost:3001/dog', 10, JSON.stringify(body.data), function (error) {
-//                                     if (error) {throw error;}
-//                                 });
-//                             } else {
-//                                 callback(response.statusCode);
-//                             }
-//                         });
-
-//                     }
-//                 });
-
-//             }
-//         },
-//         function(error, results) {
-//             res.json({
-//                 error: error,
-//                 results: results
-//             });
-//         });
-
-//     });
-
-//     app.get('/ping', function (req, res) {
-//         res.json({pong: Date.now()});
-//     });
-
-// };

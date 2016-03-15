@@ -1,3 +1,1 @@
-This is document 1
-Hello, testing testing testing!
-Blah blah blah
+TESTING TO SEE IF ORIGINAL TEXT OF DOC1 HAS BEEN OVERWRITTEN!!!!

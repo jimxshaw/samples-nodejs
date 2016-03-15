@@ -6,10 +6,21 @@ var url = require("url");
 
 var directory = "./documents";
 
+// Regular expression to securitize url paths.
+var invalidFileRegex = /^[.\/\\]|\.\./;
+
 // Create a simple http web server. It takes a callback that accepts
 // a request and returns a response. The server is a stream. To stop
 // it, we have to call .end method or it will continue to run indefinitely.
 var server = http.createServer(function (req, res) {
+    // Parse out the request's url query string.
+    var query = url.parse(req.url, true).query;
+
+    if (query.file) {
+        writeFile(req, res, query);
+        return;
+    }
+
     writeIndex(req, res);
 });
 
@@ -52,6 +63,36 @@ function writeIndex(req, res) {
             </form>
         `);
     });
+}
+
+function writeFile(req, res, query) {
+    // If users try to input a malicious url query string, send back a particular
+    // response.
+    if (invalidFileRegex.test(query.file)) {
+        writeText(res, 400, "Invalid filename");
+        return;
+    }
+
+    // Create the full filename.
+    var filename = path.join(directory, query.file);
+
+    fs.readFile(filename, function (err, buffer) {
+        if (err) {
+            writeText(res, 400, err);
+            return;
+        }
+
+        // If no error, write out with a status of 200, OK and get the contents
+        // of the file out with buffer.
+        writeText(res, 200, buffer.toString());
+    });
+}
+
+// This is used in case of errors. It will write out a head of a specified http
+// status code of content-type plain text and then write out some text.
+function writeText(res, status, text) {
+    res.writeHead(status, { "Content-Type": "text/plain" });
+    res.end(text);
 }
 
 // List the port where the web server will listen to requests.
